@@ -1,2 +1,44 @@
-<h1>Books#edit</h1>
-<p>Find me in app/views/books/edit.html.erb</p>
+<!--バリデーションによるエラーメッセージ設定 -->
+<% if @book.errors.any? %>
+  <%= @book.errors.count %>error prohibited this book from being saved:
+  <ul>
+    <% @book.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<main>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+        <!--詳細画面-->
+        <h1>Editing Book</h1>
+
+        <%= form_with model: @book do |f| %>
+          <div class="form-group">
+            <p>Title</p>
+            <%= f.text_field :title %>
+          </div>
+
+          <div class="form-group mb-2">
+            <p>Opinion</p>
+            <%= f.text_area :body %>
+          </div>
+
+          <!-- Update Bookボタン  -->
+          <div class="form-group">
+            <%= f.submit 'Update Book', class: "btn btn-success" %><br>
+          </div>
+
+          <!--詳細画面のリンク -->
+          <%= link_to "Show", book_path(@book.id) %>
+            | 
+          <!--一覧画面のリンク -->
+          <%= link_to "Back", books_path %>
+      </div>
+    </div>
+  </div>
+</main>
+
+<% end %>

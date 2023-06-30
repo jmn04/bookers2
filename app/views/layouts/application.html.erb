@@ -1,34 +1,120 @@
-<!DOCTYPE html>
 <html>
   <head>
     <title>Bookers2</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <!--FontAwesome CDN-->
-    <script src="https://kit.fontawesome.com/e39b9949f5.js" crossorigin="anonymous"></script>
+
+    <!-- FontAwesome CDN  -->
+    <script src="https://kit.fontawesome.com/3643740517.js" crossorigin="anonymous"></script>
     
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <header>
-      <% if user_signed_in? %>
-        <li>
-          <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-        </li>
-      <% else %>
-        <li>
-          <%= link_to "新規登録", new_user_registration_path %>
-        </li>
-        <li>
-          <%= link_to "ログイン", new_user_session_path %>
-        </li>
-      <% end %>
+    <header class="mb-3">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+
+          <!-- Bookersリンク -->
+          <%= link_to "Bookers", root_path, class: "navbar-brand" %>
+          <!-- ナビゲーションバー -->
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+              <!-- ログイン状態 -->
+              <% if user_signed_in? %>
+
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                  <!-- Homeリンク -->
+                  <li class="nav-item text-light">
+                    <%= link_to user_path(current_user.id), class: "nav-link text-white" do %>
+                      <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    <% end %>
+                  </li>
+
+                  <!-- Usersリンク -->
+                  <li class="nav-item text-light">
+                    <%= link_to users_path, class: "nav-link text-white" do %>
+                      <i class="fas fa-users"></i>
+                      <span>Users</span>
+                    <% end %>
+                  </li>
+
+
+                  <!-- Booksリンク -->
+                  <li class="nav-item text-ligh">
+                    <%= link_to books_path, class: "nav-link text-white" do%>
+                      <i class="fas fa-book-open"></i>
+                      <span>Books</span>
+                    <% end %>
+                  </li>
+
+                  <!-- Log outリンク -->
+                  <li class="nav-item text-light">
+                    <%= link_to destroy_user_session_path, method: :delete, class: "nav-link text-white" do %>
+                      <i class="fas fa-sign-out-alt"></i>
+                      <span>Log out</span>
+                    <% end %>
+                  </li>
+                </div>
+
+              <!-- ログイン前状態 -->
+              <% else %>
+                <!-- Bookersリンク -->
+
+
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                  <!-- Homeリンク -->
+                  <li class="nav-item text-light">
+                    <%= link_to root_path, class: "nav-link text-white" do %>
+                      <i class="fas fa-home"></i>
+                      <span>Home</span>
+                    <% end %>
+                  </li>
+
+                  <!-- Aboutリンク -->
+                  <li class="nav-item text-light">
+                    <%= link_to about_path, class: "nav-link text-white" do %>
+                      <i class="fas fa-link"></i>
+                      <span>About</span>
+                    <% end %>
+                  </li>
+
+                  <!-- Sign upリンク -->
+                  <li class="nav-item text-light">
+                    <%= link_to new_user_registration_path, class: "nav-link text-white" do %>
+                      <i class="fas fa-user-plus"></i>
+                      <span>Sign up</span>
+                    <% end %>
+                  </li>
+
+                  <!-- Log inリンク -->
+                  <li class="nav-item text-light">
+                    <%= link_to new_user_session_path, class: "nav-link text-white" do %>
+                      <i class="fas fa-sign-in-alt"></i>
+                      <span>Log in</span>
+                    <% end %>
+                  </li>
+                </div>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </nav>
     </header>
+
+  <main>
     <%= yield %>
+  </main>
+    <!-- フッター -->
+    <footer class="text-black mt-5">
+      <div class= "row" >
+        <div class= mx-auto>
+          <p>CopyRight Infratop.inc</p>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
